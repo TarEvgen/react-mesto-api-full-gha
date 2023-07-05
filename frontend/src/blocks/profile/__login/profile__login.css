@@ -1,0 +1,20 @@
+.profile__login {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  grid-area: login;
+  align-self: end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .profile__login {
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

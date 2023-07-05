@@ -1,0 +1,12 @@
+.popup__result-auth {
+  min-height: 330px;
+  max-width: 430px;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 620px) {
+  .popup__result-auth {
+    max-width: 282px;
+  }
+}

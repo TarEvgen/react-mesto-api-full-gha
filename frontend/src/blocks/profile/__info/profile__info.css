@@ -1,0 +1,33 @@
+.profile__info {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  display: grid;
+  grid-template-areas:
+    "login edit"
+    "activity .";
+  margin-left: 30px;
+  margin-top: 22px;
+  margin-bottom: 25px;
+  grid-template-columns: minmax(100px, 293px) max-content;
+  row-gap: 8px;
+  column-gap: 18px;
+}
+
+@media screen and (max-width: 800px) {
+  .profile__info {
+    font-size: 27px;
+    line-height: 33px;
+    grid-template-columns: minmax(100px, 189px) max-content;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__info {
+    margin-top: 26px;
+    margin-bottom: 33px;
+    row-gap: 8px;
+    column-gap: 9px;
+    justify-self: center;
+  }
+}

@@ -1,0 +1,15 @@
+.popup__description {
+  margin: 0;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 620px) {
+  .popup__description {
+    margin-top: 7px;
+  }
+}

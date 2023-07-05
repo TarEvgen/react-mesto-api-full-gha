@@ -1,0 +1,19 @@
+.element__delete {
+    background: url(../../../images/basket.svg);
+    width: 18px;
+    height: 19px;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-top: 20px;
+    margin-left: 4px;
+    grid-area: 1/2;
+    transition: opacity .7s;
+    cursor: pointer;
+    visibility: hidden;
+  }
+
+.element__delete:hover {
+  opacity: .6;
+}

@@ -1,20 +1,20 @@
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
-import Login from "./Login";
-import Register from "./Register";
-import InfoTooltip from "../components/InfoTooltip";
-import { useState, useEffect } from "react";
-import { api } from "../utils/Api";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { EditProfilePopup } from "../components/EditProfilePopup";
-import { EditAvatarPopup } from "../components/EditAvatarPopup";
-import { AddPlacePopup } from "./AddPlacePopup";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
-import * as mestoAuth from "../utils/mestoAuth";
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import Login from './Login';
+import Register from './Register';
+import InfoTooltip from '../components/InfoTooltip';
+import { useState, useEffect } from 'react';
+import { api } from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { EditProfilePopup } from '../components/EditProfilePopup';
+import { EditAvatarPopup } from '../components/EditAvatarPopup';
+import { AddPlacePopup } from './AddPlacePopup';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
+import * as mestoAuth from '../utils/mestoAuth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,17 +26,17 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCard] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (email, password) => {
     mestoAuth
       .authorize(email, password)
       .then((res) => {
-        setUserEmail(email);
-        localStorage.setItem("jwt", res.token);
+        localStorage.setItem('jwt', res.token);
         setLoggedIn(true);
-        navigate("/");
+        setUserEmail(email);
+        navigate('/');
       })
       .catch(() => {
         setIsSuccess(false);
@@ -50,7 +50,7 @@ function App() {
       .then((res) => {
         setIsSuccess(true);
         setIsInfoTooltipOpen(true);
-        navigate("/sign-in");
+        navigate('/sign-in');
       })
       .catch(() => {
         setIsInfoTooltipOpen(true);
@@ -60,7 +60,7 @@ function App() {
 
   function signOut() {
     setLoggedIn(false);
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
   }
 
   function handleAddPlaceSubmit(title, link) {
@@ -70,27 +70,27 @@ function App() {
         setCard([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err, 'add place'));
   }
 
   function handleUpdateAvatar(dataAvatar) {
     api
       .updateAvatar(dataAvatar)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err, 'update'));
   }
 
   function handleUpdateUser(dataUser) {
     api
       .editProfile(dataUser)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err, 'update user'));
   }
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function App() {
           setCard(dataCards);
           setCurrentUser(dataUser);
         })
-        .catch((err) => alert(err));
+        .catch((err) => alert(err, 'ошибка в промис олл'));
     }
   }, [isLoggedIn]);
 
@@ -110,11 +110,11 @@ function App() {
       .then(() => {
         setCard((state) => state.filter((c) => c._id !== card._id));
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err, 'card del'));
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
@@ -122,7 +122,7 @@ function App() {
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err, 'laiki'));
   }
 
   function handleCardClick(card) {
@@ -154,15 +154,15 @@ function App() {
   }
 
   const checkToken = () => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       mestoAuth
-        .checkToken(jwt)
+        .getCheckToken(jwt)
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            navigate("/");
-            setUserEmail(res.data.email);
+            setUserEmail(res.email);
+            navigate('/');
           } else {
             setLoggedIn(false);
           }
@@ -173,16 +173,17 @@ function App() {
 
   useEffect(() => {
     checkToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="body">
-        <div className="page">
+      <div className='body'>
+        <div className='page'>
           <Header userEmail={userEmail} onClick={signOut} />
           <Routes>
             <Route
-              path="/"
+              path='/'
               element={
                 <ProtectedRoute
                   element={Main}
@@ -199,7 +200,7 @@ function App() {
             />
 
             <Route
-              path="/sign-up"
+              path='/sign-up'
               element={
                 <Register
                   handelRegister={handelRegister}
@@ -209,13 +210,13 @@ function App() {
               }
             />
             <Route
-              path="/sign-in"
+              path='/sign-in'
               element={<Login handleLogin={handleLogin} />}
             />
             <Route
-              path="*"
+              path='*'
               element={
-                <Link to="/sign-in" className="form__login-link">
+                <Link to='/sign-in' className='form__login-link'>
                   Страница не найдена, перейти на главную.
                 </Link>
               }
@@ -239,9 +240,9 @@ function App() {
           />
           <PopupWithForm
             onClose={closeAllPopups}
-            name="popup_delete-cards"
-            title="Вы уверены?"
-            buttonText="Да"
+            name='popup_delete-cards'
+            title='Вы уверены?'
+            buttonText='Да'
           />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <InfoTooltip

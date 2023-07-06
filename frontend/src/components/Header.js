@@ -1,34 +1,34 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link } from 'react-router-dom';
 
 function Header({ userEmail, onClick }) {
   return (
-    <header className="header">
-      <div className="header__logo"></div>
+    <header className='header'>
+      <div className='header__logo'></div>
       <Routes>
         <Route
-          path="/sign-up"
+          path='/sign-up'
           element={
-            <Link className="header__link" to="/sign-in">
+            <Link className='header__link' to='/sign-in'>
               Войти
             </Link>
           }
         />
         <Route
-          path="/sign-in"
+          path='/sign-in'
           element={
-            <Link className="header__link" to="/sign-up">
+            <Link className='header__link' to='/sign-up'>
               Регистрация
             </Link>
           }
         />
         <Route
-          path="/"
+          path='/'
           element={
             <>
-              <p className="header__link header__link_login">{userEmail}</p>
+              <p className='header__link header__link_login'>{userEmail}</p>
               <Link
-                className="header__link header__link_out"
-                to="/sign-in"
+                className='header__link header__link_out'
+                to='/sign-in'
                 onClick={onClick}
               >
                 Выйти

@@ -1,11 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const { errors } = require('celebrate');
+
+
+
+const app = express();
+
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+
+
 const routes = require('./routes');
+
+app.use(cors());
 
 const {
   checkBodyLogin,
@@ -16,9 +27,7 @@ const {
   createUser,
 } = require('./controllers/users');
 
-const app = express();
-
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb').then(() => {});
 

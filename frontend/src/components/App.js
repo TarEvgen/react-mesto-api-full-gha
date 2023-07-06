@@ -70,7 +70,7 @@ function App() {
         setCard([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => alert(err, 'add place'));
+      .catch((err) => alert(err));
   }
 
   function handleUpdateAvatar(dataAvatar) {
@@ -80,7 +80,7 @@ function App() {
         setCurrentUser(res.data);
         closeAllPopups();
       })
-      .catch((err) => alert(err, 'update'));
+      .catch((err) => alert(err));
   }
 
   function handleUpdateUser(dataUser) {
@@ -90,7 +90,7 @@ function App() {
         setCurrentUser(res.data);
         closeAllPopups();
       })
-      .catch((err) => alert(err, 'update user'));
+      .catch((err) => alert(err));
   }
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function App() {
           setCard(dataCards);
           setCurrentUser(dataUser);
         })
-        .catch((err) => alert(err, 'ошибка в промис олл'));
+        .catch((err) => alert(err));
     }
   }, [isLoggedIn]);
 
@@ -110,7 +110,7 @@ function App() {
       .then(() => {
         setCard((state) => state.filter((c) => c._id !== card._id));
       })
-      .catch((err) => alert(err, 'card del'));
+      .catch((err) => alert(err));
   }
 
   function handleCardLike(card) {
@@ -122,7 +122,7 @@ function App() {
           state.map((c) => (c._id === card._id ? newCard : c))
         );
       })
-      .catch((err) => alert(err, 'laiki'));
+      .catch((err) => alert(err));
   }
 
   function handleCardClick(card) {

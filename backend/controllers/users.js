@@ -8,6 +8,10 @@ const BedRequest = require('../errors/bed-request');
 const Unauthorized = require('../errors/unauthorized');
 const Conflict = require('../errors/conflict');
 
+const {
+  secretJwt,
+} = require('../utils/variableEvn');
+
 const saltRounds = 10;
 
 const login = (req, res, next) => {
@@ -26,7 +30,7 @@ const login = (req, res, next) => {
           if (!isPasswordValue) {
             next(new Unauthorized('Неправильные почта или пароль'));
           } else {
-            const token = jwt.sign({ id: user._id }, 'secret', {
+            const token = jwt.sign({ id: user._id }, secretJwt, {
               expiresIn: '7d',
             });
             res.send({ token });
